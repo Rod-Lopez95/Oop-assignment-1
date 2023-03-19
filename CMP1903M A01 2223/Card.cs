@@ -13,7 +13,7 @@ namespace CMP1903M_A01_2223
         public int Value
         {
             get { return _value; }
-            set 
+            set
             {
                 if (value < 1 || value > 13)
                 {
@@ -22,13 +22,13 @@ namespace CMP1903M_A01_2223
                 _value = value;
             }
         }
-        
+
         // Suit: numbers 1 - 4
         private int _suit;
         public int Suit
         {
             get { return _suit; }
-            set 
+            set
             {
                 if (value < 1 || value > 4)
                 {

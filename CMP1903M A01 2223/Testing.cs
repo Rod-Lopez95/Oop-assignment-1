@@ -4,39 +4,46 @@ namespace CMP1903M_A01_2223
 {
     class Testing
     {
-        static void Main(string[] args)
+
+        public static bool TestProgram()
         {
             // Creates a Pack object
             Pack pack = new Pack();
 
-            // Testing Fisher-Yates Shuffle
-            Pack.ShuffleCardPack(1);
+            var FisherYatesResult = ShuffleTest(pack, 1);
+            if (!FisherYatesResult)
+            {
+                return false;
+            }
+            var RiffleShuffleResult = ShuffleTest(pack, 2);
+            if (!RiffleShuffleResult)
+            {
+                return false;
+            }
+            var NoShuffleResult = ShuffleTest(pack, 3);
+            if (!NoShuffleResult)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
+        private static bool ShuffleTest(Pack CardPack ,int typeOfShuffle)
+        {
+            // Testing Shuffle Types
+            CardPack.ShuffleCardPack(typeOfShuffle);
             Console.WriteLine("Fisher-Yates Shuffle:");
             for (int i = 0; i < 5; i++)
             {
-                Card card = Pack.Deal();
+                Card card = CardPack.Deal();
+                if (card.Value > 13 || card.Value < 1)
+                    return false;
+                if (card.Suit > 4 || card.Suit < 1)
+                    return false;
                 Console.WriteLine("Dealt card {0} of suit {1}", card.Value, card.Suit);
             }
-
-            // Testing Riffle Shuffle
-            Pack.ShuffleCardPack(2);
-            Console.WriteLine("\nRiffle Shuffle:");
-            for (int i = 0; i < 5; i++)
-            {
-                Card card = Pack.Deal();
-                Console.WriteLine("Dealt card {0} of suit {1}", card.Value, card.Suit);
-            }
-
-            // Testing No Shuffle
-            Pack.ShuffleCardPack(3);
-            Console.WriteLine("\nNo Shuffle:");
-            for (int i = 0; i < 5; i++)
-            {
-                Card card = Pack.Deal();
-                Console.WriteLine("Dealt card {0} of suit {1}", card.Value, card.Suit);
-            }
-
-            Console.ReadLine();
+            return true;
         }
     }
 }
